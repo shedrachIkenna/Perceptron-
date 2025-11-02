@@ -33,7 +33,7 @@ class Perceptron:
 
                 # update weights and bias 
                 self.weights += self.lr * error * X[i]
-                self.bias += self.lr + error
+                self.bias += self.lr * error
 
     
     def predict(self, X):
@@ -41,11 +41,22 @@ class Perceptron:
         The predict function uses the learned weights and bias to make predictions
         """
         linear_output = np.dot(X, self.weights) + self.bias
-        return np.array([step_function(x)] for x in linear_output)
+        return (linear_output >= 0).astype(int)
     
 
 
+# Inputs and Labels 
+X = np.array([[0,0],[0,1],[1,0],[1,1]])
+y = np.array([0,0,0,1])
 
-    
+# Train 
+p = Perceptron(learning_rate=0.1, epochs=10)
+p.fit(X, y)
+
+print("Weights:", p.weights)
+print("Bias:", p.bias)
+
+# Test
+print("Predictions:", p.predict(X))
 
 
