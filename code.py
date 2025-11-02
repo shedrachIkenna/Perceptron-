@@ -15,6 +15,9 @@ class Perceptron:
         self.epochs = epochs
 
     def fit(self, X, y):
+        """
+        This is the training function where learning happens 
+        """
         self.weights = np.zeros(X.shape[1]) # initialize weights to 0 
         self.bias = 0 # initialize bias = 0
 
@@ -31,4 +34,14 @@ class Perceptron:
                 # update weights and bias 
                 self.weights += self.lr * error * X[i]
                 self.bias += self.lr + error
+
+    
+    def predict(self, X):
+        """
+        The predict function uses the learned weights and bias to make predictions
+        """
+        linear_output = np.dot(X, self.weights) + self.bias
+        return np.array([step_function(x)] for x in linear_output)
+    
+
 
